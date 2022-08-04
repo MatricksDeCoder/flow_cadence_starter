@@ -81,6 +81,7 @@ flow transactions send ./transactions/setup_collection.cdc --network=testnet
 
 ```
 flow transactions send ./transactions/mint_nft.cdc 0x9f43dc61c1627cb1 --network=testnet --signer=testnet-account
+flow transactions send ./transactions/mint_nft.cdc 0x9f43dc61c1627cb1 "Poop" "Poopies" 7  --network=testnet --signer=testnet-account
 ```
 
 # Flow Blockchain + Cadence Notes
@@ -182,11 +183,5 @@ panic("An unrecoverable error occurred")
 [access modifier] [var/let] [variable name]: [type e.g Void]
 
 ```
-
-
-
-
-
-
 
 ```

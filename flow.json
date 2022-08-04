@@ -15,17 +15,17 @@
 	},
 	"accounts": {
 		"emulator-account": {
-		  "address": "YOUR ADDRESS HERE",
+		  "address": "f8d6e0586b0a20c7",
 		  "key": "5112883de06b9576af62b9aafa7ead685fb7fb46c495039b1a83649d61bff97c"
 		},
 		"testnet-account": {
-		  "address": "0x9f43dc61c1627cb1",
+		  "address": "YOUR_ADDRESS_HERE",
 		  "key": {
 			"type": "hex",
 			"index": 0,
 			"signatureAlgorithm": "ECDSA_P256",
 			"hashAlgorithm": "SHA3_256",
-			"privateKey": "YOUR PRIVATE KEY HERE"
+			"privateKey": "YOUR_PRIVATE_KEY_HERE"
 		  }
 		}
 	  },
