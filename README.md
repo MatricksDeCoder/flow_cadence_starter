@@ -184,4 +184,59 @@ panic("An unrecoverable error occurred")
 
 ```
 
+Flow has Collection, Execution, Consensue, Verification nodes to seperate concerns and bring about efficiencies
+Flow account contains Tokens, Balance, Storage, Public Keys, Code  [Storage roughly get 100MB per Flow Token]
+Flow addresses are not derived from keypairs. Multiple accounts can share one public key allowing for multisig easily 
+Each key has a weight between 1 and 1000. Transaction only be signed if enough keys to have a total weight 1000 or more.
+To create multisig, a 2/3 multisig wallet, you can attach 3 keys to the account such that:
+Key A = Weight 500 Key B = Weight 500 Key C = Weight 500
+
+Signing transactions on Flow is a multistep process. Yu can broadcast and have someone pay for your transaction
+- Proposer Transaction (signer on whose behalf the transaction will be made)
+- Authorizer Transaction (keys that sign transaction)
+- Payer Transaction (pays gas fees)
+
+Fees on Flow calculated using (Execution Fee + Inclusion Fee + Network Surcharge fee]
+Task Tracker Contract
+```
+pub contract TaskTracker {
+    pub resource TaskList  {
+        pub var tasks: [String]
+        init() {
+            self.tasks = []
+        }
+
+        pub fun addTask(task: String) {
+            self.tasks.append(task)
+        }
+
+        pub fun removeTask(idx: Integer) {
+            self.tasks.remove(at: idx)
+        }
+    }
+    
+    pub fun createTaskList(): @TaskList {
+        let myTaskList <- create TaskList()
+        return <- myTaskList
+    }
+}
+
+------- Transation-------------------------
+// Add Task Transaction
+// Add Task Transaction
+import TaskTracker from 0x01
+
+transaction(task: String) {
+
+  prepare(acct: AuthAccount) {
+    // use borrow references to avoid moving resource out
+    let myTaskList <- acct.load<@TaskTracker.TaskList>(from: /storage/MyTaskList) 
+        ?? panic("Nothing lives at this path")
+    myTaskList.addTask(task: task)
+    acct.save(<- myTaskList, to: /storage/MyTaskList)
+  }
+
+  execute {}
+
+}
 ```
